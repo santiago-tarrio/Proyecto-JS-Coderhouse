@@ -20,10 +20,16 @@ var productoArray = (new Producto("Short Boston Celtics", 16000, 10));
 productos.push(productoArray)
 var productoArray = (new Producto("Pantalon Los Angeles Clippers", 20000, 1));
 productos.push(productoArray)
+var productoArray = (new Producto("Pantalon Minnesota Timberwolves", 20000, 0));
+productos.push(productoArray)
 
 const carrito = []
 
 let total=0;
+
+const indiceArray = productos.map(e => e.stock).indexOf(0);
+productos.splice(indiceArray, 1);
+console.log(productos)
 
 function aplicarDescuento(parametro){
     if(parametro<1300){
@@ -35,14 +41,13 @@ function aplicarDescuento(parametro){
 let hayStock;
 
 do{
-    const seleccionDeProducto = prompt (`
-        Seleccione un producto para agregar al carrito:
-        1. ${productos[0].nombre} a $ ${productos[0].precio} 
-        2. ${productos[1].nombre} a $ ${productos[1].precio} 
-        3. ${productos[2].nombre} a $ ${productos[2].precio} 
-        4. ${productos[3].nombre} a $ ${productos[3].precio}
-        5. ${productos[4].nombre} a $ ${productos[4].precio}
-        6. ${productos[5].nombre} a $ ${productos[5].precio}`);
+    const arrayPrompt = [];
+    for (let i = 0; i < productos.length; i++){
+        paraPrompt = `${i}. ${productos[i].nombre} a $ ${productos[i].precio}`;
+        arrayPrompt.push(paraPrompt);
+    }
+    const seleccionDeProducto = prompt(`Seleccione un producto para agregar al carrito:
+    ${arrayPrompt.join ("\r")}`);
     
     const seleccionDeStock = prompt ("Seleccione la cantidad que desea comprar de este producto:");
 
