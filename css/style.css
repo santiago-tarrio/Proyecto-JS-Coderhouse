@@ -1,0 +1,44 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; }
+
+.navbar{
+    background-color: black;
+    height: 90px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.carrito{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: white;
+    margin-bottom: 10px;
+    margin-right: 50px;
+}
+
+
+#contenedorProductos{
+    display: flex;
+    justify-content: center;
+    justify-content:space-evenly;
+}
+
+.producto{
+    border: 1px solid black;
+    height: 350px;
+    width: 250px;
+    margin: 10px;
+    
+}
+
+.imagenProducto {
+    width: 248px;
+    height: 270px;
+    padding: 10px;
+}
+
+
