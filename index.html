@@ -10,15 +10,32 @@
 <body>
     <nav class="navbar">
         <div class="carrito">
-        
+            <p id="cantidadJugadores">0</p>
+        </div>
+        <div class="carrito" >
+            <a href="encuentro.html">
+                <p id="cantidadJugadoresVisita">0</p>
+            </a>
         </div>
     </nav>
     <main>
     <h1>Tienda Básquet </h1>
     <h2>Productos NBA</h2>
     <div>
-        <div id="contenedorProductos">
+        <div id="contenedorJugadores">
             
+        </div>
+        <button id="botonVS" onclick="abrirPopUp()">VS</button>
+        <div id="ventanaPopUp">
+                <div id="contenedorMiEquipo">
+
+                </div>
+                <button id="botonPartida">Enfrentamiento</button>
+                <div id="contenedorEquipoRival">
+    
+                </div>
+                <button id="botonCerrado">X</button>
+                <div id="resultado"></div>
         </div>
     </div>
     </main>

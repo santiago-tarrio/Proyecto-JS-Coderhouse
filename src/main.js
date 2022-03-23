@@ -1,33 +1,204 @@
-class Producto{
-    constructor (nombre, precio, stock, imagen) {
+class Jugador{
+    constructor (id, nombre, equipo, puntos, tirosDe3, asistencias, rebotes, robos, imagen) {
+        this.id = id;
         this.nombre = nombre;
-        this.precio = precio;
-        this.stock= stock;
-        this.imagen = imagen; 
+        this.equipo = equipo;
+        this.puntos = puntos;
+        this.tirosDe3= tirosDe3;
+        this.asistencias = asistencias;
+        this.rebotes = rebotes;
+        this.robos = robos;
+        this.imagen = imagen;
     }
 }
 
-const productos = [];
+const jugadores = [];
+const miEquipo = []
+const equipoRival = []
 
-var productoArray = (new Producto("Jersey Los Angeles Lakers", 25000, 2, "https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/019acd9b-fd80-4ddd-902d-4b96e28a0671/jersey-nba-swingman-lebron-james-lakers-GTRSXs.png" ));
-productos.push(productoArray)
-var productoArray = (new Producto("Jersey Phoenix Suns", 25000, 5, "https://images.footballfanatics.com/phoenix-suns/phoenix-suns-nike-city-edition-swingman-jersey-deandre-ayton-youth_ss4_p-12052266+pv-1+u-om8nwncrzqzfs88oclzs+v-cc9c17bb9dad423ebc15d0589c013c29.jpg?_hv=1&w=600"));
-productos.push(productoArray)
-var productoArray = (new Producto("Jersey Denver Nuggets", 25000, 3, "https://images.footballfanatics.com/denver-nuggets/denver-nuggets-nike-icon-edition-swingman-jersey-navy-nikola-jokic-mens_ss4_p-11972902+pv-1+u-ccro0a8kd92fbgch8thg+v-c2e238a3f7b546a98b1ea6b7340bbeb2.jpg?_hv=1&w=900"));
-productos.push(productoArray)
-var productoArray = (new Producto("Gorra Brooklyn Nets", 12000, 6, "https://images.footballfanatics.com/brooklyn-nets/brooklyn-nets-new-era-the-league-9forty-adjustable-cap_ss4_p-11896022+u-8wh4xk1s2wecqry69zs0+v-c47f1b8820f6417aa1174661542cc83f.jpg?_hv=1&w=600"));
-productos.push(productoArray)
-var productoArray = (new Producto("Short Boston Celtics", 16000, 10, "https://images.footballfanatics.com/boston-celtics/boston-celtics-nike-icon-swingman-shorts-mens_ss4_p-11914513+u-yxdp39thg5asfcni9drm+v-bfea50cedef04222a2ff57cf9195235f.jpg?_hv=1&w=600"));
-productos.push(productoArray)
-var productoArray = (new Producto("Pantalon Los Angeles Clippers", 20000, 1));
-productos.push(productoArray)
-var productoArray = (new Producto("Pantalon Minnesota Timberwolves", 20000, 0));
-productos.push(productoArray)
+var jugadoresArray = (new Jugador(0, "LeBron James", "Los Angeles Lakers", 25.0, 365, 7.8, 7.7, 1.1));
+jugadores.push(jugadoresArray)
 
-const carrito = []
+var jugadoresArray = (new Jugador(1, "Stephen Curry", "Golden State Warriors", 32.0, 421, 5.8, 5.5, 1.2));
+jugadores.push(jugadoresArray)
+
+var jugadoresArray = (new Jugador(2, "Nikola Jokic", "Denver Nuggets", 26.4, 388, 8.3, 10.8, 1.3));
+jugadores.push(jugadoresArray)
+
+var jugadoresArray = (new Jugador(3, "Luka Doncic", "Dallas Mavericks", 27.7, 350, 8.6, 8.0, 1.0));
+jugadores.push(jugadoresArray)
+
+var jugadoresArray = (new Jugador(4, "Giannis Antetokounmpo", "Milwaukee Bucks", 28.1, 303, 5.9, 11.0, 1.2));
+jugadores.push(jugadoresArray)
+
+var jugadoresArray = (new Jugador(5, "Rudy Gobert", "Utah Jazz", 14.3, 000, 1.3, 13.5, 1.6));
+jugadores.push(jugadoresArray)
+
+var jugadoresArray = (new Jugador(6, "Chris Paul", "Phoenix Suns", 16.4, 395, 8.9, 4.5, 1.4));
+jugadores.push(jugadoresArray)
+
+
+
+
+
+const containerJugadores = document.querySelector('#contenedorJugadores');
+const containerMiEquipo = document.querySelector('#contenedorMiEquipo');
+const containerEquipoRival = document.querySelector('#contenedorEquipoRival')
+
+
+var botonDehabilitado = document.getElementsByClassName('botonJugadores')
+
+
+
+function creadorCards (array, container){
+    array.forEach(datosJugadores =>{
+        let card = document.createElement("div");
+        card.className = 'cardJugadores';
+    
+        card.innerHTML = `<p>NBA</p>
+        <img src="${datosJugadores.imagen}" class="imagenJugadores" >
+        <p>${datosJugadores.nombre}</p>
+        <p>${datosJugadores.equipo}</p>
+        <button class="botonJugadores" onclick="agregarJugador(${datosJugadores.id})">Agregar al equipo</button>`
+        container.appendChild(card)
+    })
+    
+}
+
+
+
+
+
+
+function creadorEquipos (array, id, container){
+    let card = document.createElement("div");
+        card.className = 'cardJugadores';
+    
+        card.innerHTML = `<p>NBA</p>
+        <img src="${array[id].imagen}" class="imagenJugadores" >
+        <p>${array[id].nombre}</p>
+        <p>${array[id].equipo}</p>`
+        container.appendChild(card)
+}
+
+
+creadorCards (jugadores, containerJugadores);
+
+
+const agregarJugador = (jugadorElegido) =>{
+    const nuevoJugador = jugadores.find (jugadores => jugadores.id === jugadorElegido)
+    if(miEquipo.length < 5){
+        miEquipo.push(nuevoJugador)
+        document.getElementById('cantidadJugadores').innerHTML = miEquipo.length;
+        //creadorEquipos (miEquipo, nuevoJugador.id, containerMiEquipo);
+    }else if(equipoRival.length < 5){
+        equipoRival.push(nuevoJugador)
+        document.getElementById('cantidadJugadoresVisita').innerHTML = equipoRival.length;
+        //creadorEquipos (equipoRival, nuevoJugador.id, containerEquipoRival);
+    } else {
+        botonDehabilitado.disabled = true;
+    }
+}
+
+console.log(miEquipo);
+console.log(equipoRival);
 
 let total=0;
 
+let puntosLocal=0;
+let puntosVisita=0;
+let puntosEmpate=0;
+
+const popUp = document.getElementById('ventanaPopUp');
+const cerrar = document.getElementById('botonCerrado');
+
+
+function abrirPopUp (){
+    popUp.classList.add("mostrarPopUp");
+    creadorCards (miEquipo, containerMiEquipo);
+    creadorCards (equipoRival, containerEquipoRival);
+    console.log(miEquipo);
+}
+
+cerrar.addEventListener('click', () => {
+    popUp.classList.remove("mostrarPopUp");
+});
+
+
+function juego(rol){
+    switch (rol) {
+        case 0:
+            if (miEquipo[rol].puntos > equipoRival[rol].puntos)  puntosLocal+=1;    
+            if (miEquipo[rol].puntos < equipoRival[rol].puntos)  puntosVisita+=1;
+            if (miEquipo[rol].puntos === equipoRival[rol].puntos)  puntosEmpate+=1;
+            break;
+        case 1:
+            if (miEquipo[rol].tirosDe3 > equipoRival[rol].tirosDe3)  puntosLocal+=1;    
+            if (miEquipo[rol].tirosDe3 < equipoRival[rol].tirosDe3)  puntosVisita+=1;
+            if (miEquipo[rol].tirosDe3 === equipoRival[rol].tirosDe3)  puntosEmpate+=1;
+            break;
+        case 2:
+            if (miEquipo[rol].asistencias > equipoRival[rol].asistencias)  puntosLocal+=1;    
+            if (miEquipo[rol].asistencias < equipoRival[rol].asistencias)  puntosVisita+=1;
+            if (miEquipo[rol].asistencias === equipoRival[rol].asistencias)  puntosEmpate+=1;
+            break;
+        case 3:
+            if (miEquipo[rol].rebotes > equipoRival[rol].rebotes)  puntosLocal+=1;    
+            if (miEquipo[rol].rebotes < equipoRival[rol].rebotes)  puntosVisita+=1;
+            if (miEquipo[rol].rebotes === equipoRival[rol].rebotes)  puntosEmpate+=1;
+            break;
+        case 4:
+            if (miEquipo[rol].robos > equipoRival[rol].robos)  puntosLocal+=1;    
+            if (miEquipo[rol].robos < equipoRival[rol].robos)  puntosVisita+=1;
+            if (miEquipo[rol].robos === equipoRival[rol].robos)  puntosEmpate+=1;
+        default:
+            console.log("error")
+    }
+
+}
+
+
+
+function enfrentamiento() {
+    for(let i = 0; i < 5; i++){
+        juego(i);
+    }
+}
+
+
+const empezarPartida = document.getElementById('botonPartida');
+
+const resultado = document.getElementById('resultado');
+
+empezarPartida.addEventListener('click', () => {
+    enfrentamiento();
+    console.log(puntosEmpate);
+    console.log(puntosLocal);
+    console.log(puntosVisita);
+    if (puntosLocal > puntosVisita) {
+        resultado.innerHTML = `<p>Ganó el equipo local</p>`
+      } else if (puntosLocal < puntosVisita) {
+        resultado.innerHTML = `<p>Ganó el equipo visitante</p>`
+      } else {
+        resultado.innerHTML = `<p>Es un empate</p>`
+    }
+});
+
+
+
+if (puntosLocal > puntosVisita) {
+    console.log("Ganan los locales");
+  } else if (puntosLocal < puntosVisita) {
+    console.log("Ganan los visitantes");
+  } else {
+    console.log("Empate");
+}
+
+
+
+//onError="eliminarImagen(this);"
+
+/*
 const indiceArray = productos.map(e => e.stock).indexOf(0);
 productos.splice(indiceArray, 1);
 
@@ -173,7 +344,7 @@ function eliminarImagen(element) {
     element.parentNode.remove();
 }
 
-
+*/
 
 
 
