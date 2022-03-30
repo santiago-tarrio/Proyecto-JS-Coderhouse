@@ -80,8 +80,11 @@
 
 #botonVS{
     height: 60px;
-    width: 100px;
+    width: 150px;
+    border-radius: 8%;
+    border: none;
 }
+
 
 #botonCerrado{
     position: absolute;

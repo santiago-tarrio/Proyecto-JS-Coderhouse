@@ -1,3 +1,27 @@
+const jugadores = [];
+const miEquipo = miEquipoStorageControl();
+const equipoRival = equipoRivalStorageControl();
+
+function miEquipoStorageControl(){
+    if(localStorage.getItem("miEquipo") != null){
+        const miEquipoStorage = JSON.parse(localStorage.getItem("miEquipo"));
+        return miEquipoStorage;
+    }else{
+        return [];
+    }
+}
+document.getElementById('cantidadJugadores').innerHTML = miEquipo.length;
+
+function equipoRivalStorageControl(){
+    if(localStorage.getItem("equipoRival") != null){
+        const storageEquipoRival = JSON.parse(localStorage.getItem("equipoRival"));
+        return storageEquipoRival;
+    }else{
+        return [];
+    }
+}
+document.getElementById('cantidadJugadoresVisita').innerHTML = equipoRival.length;
+
 class Jugador{
     constructor (id, nombre, equipo, puntos, tirosDe3, asistencias, rebotes, robos, imagen) {
         this.id = id;
@@ -12,9 +36,6 @@ class Jugador{
     }
 }
 
-const jugadores = [];
-const miEquipo = []
-const equipoRival = []
 
 var jugadoresArray = (new Jugador(0, "LeBron James", "Los Angeles Lakers", 25.0, 365, 7.8, 7.7, 1.1));
 jugadores.push(jugadoresArray)
@@ -39,16 +60,11 @@ jugadores.push(jugadoresArray)
 
 
 
-
-
 const containerJugadores = document.querySelector('#contenedorJugadores');
 const containerMiEquipo = document.querySelector('#contenedorMiEquipo');
 const containerEquipoRival = document.querySelector('#contenedorEquipoRival')
 
-
 var botonDehabilitado = document.getElementsByClassName('botonJugadores')
-
-
 
 function creadorCards (array, container){
     array.forEach(datosJugadores =>{
@@ -65,11 +81,7 @@ function creadorCards (array, container){
     
 }
 
-
-
-
 /*
-
 function creadorEquipos (array, id, container){
     let card = document.createElement("div");
         card.className = 'cardJugadores';
@@ -85,15 +97,16 @@ function creadorEquipos (array, id, container){
 
 creadorCards (jugadores, containerJugadores);
 
-
 const agregarJugador = (jugadorElegido) =>{
     const nuevoJugador = jugadores.find (jugadores => jugadores.id === jugadorElegido)
     if(miEquipo.length < 5){
         miEquipo.push(nuevoJugador)
+        localStorage.setItem("miEquipo", JSON.stringify(miEquipo));
         document.getElementById('cantidadJugadores').innerHTML = miEquipo.length;
         //creadorEquipos (miEquipo, nuevoJugador.id, containerMiEquipo);
     }else if(equipoRival.length < 5){
         equipoRival.push(nuevoJugador)
+        localStorage.setItem("equipoRival", JSON.stringify(equipoRival));
         document.getElementById('cantidadJugadoresVisita').innerHTML = equipoRival.length;
         //creadorEquipos (equipoRival, nuevoJugador.id, containerEquipoRival);
     } else {
@@ -155,9 +168,7 @@ function juego(rol){
         default:
             console.log("error")
     }
-
 }
-
 
 
 function enfrentamiento() {
@@ -165,7 +176,6 @@ function enfrentamiento() {
         juego(i);
     }
 }
-
 
 const empezarPartida = document.getElementById('botonPartida');
 
@@ -178,20 +188,21 @@ empezarPartida.addEventListener('click', () => {
     console.log(puntosVisita);
     if (puntosLocal > puntosVisita) {
         resultado.innerHTML = `<p>Ganó el equipo local</p>`
-      } else if (puntosLocal < puntosVisita) {
+        localStorage.clear();
+        } else if (puntosLocal < puntosVisita) {
         resultado.innerHTML = `<p>Ganó el equipo visitante</p>`
-      } else {
+        localStorage.clear();
+        } else {
         resultado.innerHTML = `<p>Es un empate</p>`
+        localStorage.clear();
     }
 });
 
-
-
 if (puntosLocal > puntosVisita) {
     console.log("Ganan los locales");
-  } else if (puntosLocal < puntosVisita) {
+    } else if (puntosLocal < puntosVisita) {
     console.log("Ganan los visitantes");
-  } else {
+    } else {
     console.log("Empate");
 }
 
