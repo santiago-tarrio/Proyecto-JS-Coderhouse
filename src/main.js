@@ -1,25 +1,9 @@
 const jugadores = [];
-const miEquipo = miEquipoStorageControl();
-const equipoRival = equipoRivalStorageControl();
+const miEquipo = JSON.parse(localStorage.getItem("miEquipo")) || []
+const equipoRival = JSON.parse(localStorage.getItem("equipoRival")) || []
 
-function miEquipoStorageControl(){
-    if(localStorage.getItem("miEquipo") != null){
-        const miEquipoStorage = JSON.parse(localStorage.getItem("miEquipo"));
-        return miEquipoStorage;
-    }else{
-        return [];
-    }
-}
 document.getElementById('cantidadJugadores').innerHTML = miEquipo.length;
 
-function equipoRivalStorageControl(){
-    if(localStorage.getItem("equipoRival") != null){
-        const storageEquipoRival = JSON.parse(localStorage.getItem("equipoRival"));
-        return storageEquipoRival;
-    }else{
-        return [];
-    }
-}
 document.getElementById('cantidadJugadoresVisita').innerHTML = equipoRival.length;
 
 class Jugador{
@@ -37,25 +21,25 @@ class Jugador{
 }
 
 
-var jugadoresArray = (new Jugador(0, "LeBron James", "Los Angeles Lakers", 25.0, 365, 7.8, 7.7, 1.1));
+var jugadoresArray = (new Jugador(0, "LeBron James", "Los Angeles Lakers", 25.0, 365, 7.8, 7.7, 1.1, "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/2544.png"));
 jugadores.push(jugadoresArray)
 
-var jugadoresArray = (new Jugador(1, "Stephen Curry", "Golden State Warriors", 32.0, 421, 5.8, 5.5, 1.2));
+var jugadoresArray = (new Jugador(1, "Stephen Curry", "Golden State Warriors", 32.0, 421, 5.8, 5.5, 1.2, "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201939.png"));
 jugadores.push(jugadoresArray)
 
-var jugadoresArray = (new Jugador(2, "Nikola Jokic", "Denver Nuggets", 26.4, 388, 8.3, 10.8, 1.3));
+var jugadoresArray = (new Jugador(2, "Nikola Jokic", "Denver Nuggets", 26.4, 388, 8.3, 10.8, 1.3, "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203999.png"));
 jugadores.push(jugadoresArray)
 
-var jugadoresArray = (new Jugador(3, "Luka Doncic", "Dallas Mavericks", 27.7, 350, 8.6, 8.0, 1.0));
+var jugadoresArray = (new Jugador(3, "Luka Doncic", "Dallas Mavericks", 27.7, 350, 8.6, 8.0, 1.0, "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1629029.png"));
 jugadores.push(jugadoresArray)
 
-var jugadoresArray = (new Jugador(4, "Giannis Antetokounmpo", "Milwaukee Bucks", 28.1, 303, 5.9, 11.0, 1.2));
+var jugadoresArray = (new Jugador(4, "Giannis Antetokounmpo", "Milwaukee Bucks", 28.1, 303, 5.9, 11.0, 1.2, "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203507.png"));
 jugadores.push(jugadoresArray)
 
-var jugadoresArray = (new Jugador(5, "Rudy Gobert", "Utah Jazz", 14.3, 000, 1.3, 13.5, 1.6));
+var jugadoresArray = (new Jugador(5, "Rudy Gobert", "Utah Jazz", 14.3, 000, 1.3, 13.5, 1.6, "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203497.png"));
 jugadores.push(jugadoresArray)
 
-var jugadoresArray = (new Jugador(6, "Chris Paul", "Phoenix Suns", 16.4, 395, 8.9, 4.5, 1.4));
+var jugadoresArray = (new Jugador(6, "Chris Paul", "Phoenix Suns", 16.4, 395, 8.9, 4.5, 1.4, "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/101108.png"));
 jugadores.push(jugadoresArray)
 
 
@@ -71,8 +55,7 @@ function creadorCards (array, container){
         let card = document.createElement("div");
         card.className = 'cardJugadores';
     
-        card.innerHTML = `<p>NBA</p>
-        <img src="${datosJugadores.imagen}" class="imagenJugadores" >
+        card.innerHTML = `<img src="${datosJugadores.imagen}" class="imagenJugadores" >
         <p>${datosJugadores.nombre}</p>
         <p>${datosJugadores.equipo}</p>
         <button class="botonJugadores" onclick="agregarJugador(${datosJugadores.id})">Agregar al equipo</button>`
@@ -138,33 +121,32 @@ cerrar.addEventListener('click', () => {
     popUp.classList.remove("mostrarPopUp");
 });
 
-
 function juego(rol){
     switch (rol) {
         case 0:
-            if (miEquipo[rol].puntos > equipoRival[rol].puntos)  puntosLocal+=1;    
-            if (miEquipo[rol].puntos < equipoRival[rol].puntos)  puntosVisita+=1;
-            if (miEquipo[rol].puntos === equipoRival[rol].puntos)  puntosEmpate+=1;
+            miEquipo[rol].puntos > equipoRival[rol].puntos &&  puntosLocal++;    
+            miEquipo[rol].puntos < equipoRival[rol].puntos &&  puntosVisita++;
+            miEquipo[rol].puntos === equipoRival[rol].puntos &&  puntosEmpate++;
             break;
         case 1:
-            if (miEquipo[rol].tirosDe3 > equipoRival[rol].tirosDe3)  puntosLocal+=1;    
-            if (miEquipo[rol].tirosDe3 < equipoRival[rol].tirosDe3)  puntosVisita+=1;
-            if (miEquipo[rol].tirosDe3 === equipoRival[rol].tirosDe3)  puntosEmpate+=1;
+            miEquipo[rol].tirosDe3 > equipoRival[rol].tirosDe3 &&  puntosLocal++;    
+            miEquipo[rol].tirosDe3 < equipoRival[rol].tirosDe3 &&  puntosVisita++;
+            miEquipo[rol].tirosDe3 === equipoRival[rol].tirosDe3 &&  puntosEmpate++;
             break;
         case 2:
-            if (miEquipo[rol].asistencias > equipoRival[rol].asistencias)  puntosLocal+=1;    
-            if (miEquipo[rol].asistencias < equipoRival[rol].asistencias)  puntosVisita+=1;
-            if (miEquipo[rol].asistencias === equipoRival[rol].asistencias)  puntosEmpate+=1;
+            miEquipo[rol].asistencias > equipoRival[rol].asistencias &&  puntosLocal++;    
+            miEquipo[rol].asistencias < equipoRival[rol].asistencias &&  puntosVisita++;
+            miEquipo[rol].asistencias === equipoRival[rol].asistencias &&  puntosEmpate++;
             break;
         case 3:
-            if (miEquipo[rol].rebotes > equipoRival[rol].rebotes)  puntosLocal+=1;    
-            if (miEquipo[rol].rebotes < equipoRival[rol].rebotes)  puntosVisita+=1;
-            if (miEquipo[rol].rebotes === equipoRival[rol].rebotes)  puntosEmpate+=1;
+            miEquipo[rol].rebotes > equipoRival[rol].rebotes &&  puntosLocal++;    
+            miEquipo[rol].rebotes < equipoRival[rol].rebotes &&  puntosVisita++;
+            miEquipo[rol].rebotes === equipoRival[rol].rebotes &&  puntosEmpate++;
             break;
         case 4:
-            if (miEquipo[rol].robos > equipoRival[rol].robos)  puntosLocal+=1;    
-            if (miEquipo[rol].robos < equipoRival[rol].robos)  puntosVisita+=1;
-            if (miEquipo[rol].robos === equipoRival[rol].robos)  puntosEmpate+=1;
+            miEquipo[rol].robos > equipoRival[rol].robos &&  puntosLocal++;    
+            miEquipo[rol].robos < equipoRival[rol].robos &&  puntosVisita++;
+            miEquipo[rol].robos === equipoRival[rol].robos &&  puntosEmpate++;
         default:
             console.log("error")
     }

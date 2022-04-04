@@ -40,18 +40,48 @@
     height: 350px;
     width: 250px;
     margin: 10px;
-    
+    overflow: hidden;
+    border-radius: 0.4em;
+    box-shadow: 0.3em 0.3em 0.7em #00000015;
+    transition: border 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: rgb(250, 250, 250) 0.2em solid;
+}
+
+
+#contenedorJugadores img{
+    margin-bottom: 5%;
+    margin-top: 5%;
+}
+
+#contenedorJugadores button{
+    transform: translateX(60%);
+    margin-top: 15%;
+}
+
+#contenedorJugadores div:hover{
+    border: #006fff 0.2em solid;
+}
+
+#contenedorJugadores div img{
+    margin-left: -3%;
 }
 
 #contenedorMiEquipo div, #contenedorEquipoRival div{
-    height: 150px;
-    width: 150px;
+    height: 180px;
+    width: 180px;
     border-radius: 50%;
     border: 1px solid black;
+    overflow: hidden;
+    margin: 10px;
 }
 
 #contenedorMiEquipo div button, #contenedorEquipoRival div button{
     display: none;
+}
+
+#contenedorMiEquipo img, #contenedorEquipoRival img{
+    margin-left: -21%;
+    margin-top: -5%;
 }
 
 .imagenProducto{
@@ -61,28 +91,33 @@
 }
 
 #ventanaPopUp{
-    width: 800px;
-    height: 800px;
+    width: 900px;
+    height: 1000px;
     border: 1px solid black;
     flex-direction: column;
     background-color: white;
-    transform: translate(80%, -5%);
+    transform: translate(60%, -20%);
     border-radius: 5%;
-    opacity: 0;
     display: flex;
     flex-wrap:wrap;
     align-content: space-between;
+    visibility: hidden;
 }
 
 .mostrarPopUp{
-    opacity: 1 !important;
+    visibility: visible !important;
 }
+
 
 #botonVS{
     height: 60px;
     width: 150px;
     border-radius: 8%;
     border: none;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 10px;
 }
 
 
