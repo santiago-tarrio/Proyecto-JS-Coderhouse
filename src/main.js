@@ -61,7 +61,6 @@ function creadorCards (array, container){
         <button class="botonJugadores" onclick="agregarJugador(${datosJugadores.id})">Agregar al equipo</button>`
         container.appendChild(card)
     })
-    
 }
 
 /*
@@ -95,10 +94,8 @@ const agregarJugador = (jugadorElegido) =>{
     } else {
         botonDehabilitado.disabled = true;
     }
+    checkEquipoRival = equipoRival.length
 }
-
-console.log(miEquipo);
-console.log(equipoRival);
 
 let total=0;
 
@@ -107,18 +104,44 @@ let puntosVisita=0;
 let puntosEmpate=0;
 
 const popUp = document.getElementById('ventanaPopUp');
+const modal = document.getElementById('modal')
 const cerrar = document.getElementById('botonCerrado');
+const botonPartida = document.getElementById('botonVS')
+
+let cardsMiEquipo = containerMiEquipo.childElementCount;
+let cardsEquipoRival = containerEquipoRival.childElementCount;
+
+let checkEquipoRival = equipoRival.length;
+
+
+botonPartida.addEventListener ('click', abrirPopUp);
+
 
 
 function abrirPopUp (){
-    popUp.classList.add("mostrarPopUp");
+    if (checkEquipoRival === 5 && cardsEquipoRival < 5 ){
     creadorCards (miEquipo, containerMiEquipo);
     creadorCards (equipoRival, containerEquipoRival);
-    console.log(miEquipo);
+    }
+    cardsMiEquipo = containerMiEquipo.childElementCount;
+    cardsEquipoRival = containerEquipoRival.childElementCount;
+    if (cardsEquipoRival > 4){
+        popUp.classList.add("mostrarPopUp");
+        modal.classList.add("mostrarModal");
+    }else{
+        swal({
+            title: "Los equipos no están completos",
+            text: "Debes elegir cinco jugadores por lado",
+            icon: "error",
+            button: "Continuar",
+        });
+    }
 }
+
 
 cerrar.addEventListener('click', () => {
     popUp.classList.remove("mostrarPopUp");
+    modal.classList.remove("mostrarModal");
 });
 
 function juego(rol){

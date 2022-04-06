@@ -8,31 +8,42 @@
     <link rel="stylesheet" href=./css/style.css>
 </head>
 <body>
-    <nav class="navbar">
-
-    </nav>
-    <main>
-    <h1>Fantasy Draft NBA </h1>
-    <div>
+<div class="grilla">
+    <div id="modal"></div>
+    <header>
+        <nav class="navbar">
+        </nav>
+    </header>
+    <section class="section1">
+        <h1>Fantasy Draft NBA </h1>
         <div id="contenedorJugadores">
             
         </div>
-        <button id="botonVS" onclick="abrirPopUp()">
+        <button id="botonVS">
             <span id="cantidadJugadores">0</span><span> VS </span><span id="cantidadJugadoresVisita">0</span>
         </button>
-        <div id="ventanaPopUp">
+        <div id="modal"></div>
+            <div id="ventanaPopUp">
                 <div id="contenedorMiEquipo">
-
+        
                 </div>
                 <button id="botonPartida">Enfrentamiento</button>
                 <div id="contenedorEquipoRival">
-    
+        
                 </div>
                 <button id="botonCerrado">X</button>
                 <div id="resultado"></div>
-        </div>
-    </div>
-    </main>
+            </div>
+        
+    </section>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="wave">
+        <path fill="#0066ff" fill-opacity="1"
+            d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,101.3C672,75,768,53,864,53.3C960,53,1056,75,1152,101.3C1248,128,1344,160,1392,176L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+        </path>
+    </svg>
+    <footer class="footer"></footer>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="./src/main.js"></script>
+</div>
 </body>
 </html>

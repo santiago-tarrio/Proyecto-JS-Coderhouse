@@ -3,13 +3,23 @@
     padding: 0;
     box-sizing: border-box; }
 
-.navbar{
-    background-color: black;
-    height: 90px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
+.grilla {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 4% 38% 54% 4%;
+    gap: 0px 0px;
+    grid-template-areas:
+        "header"
+        "section1"
+        "wave"
+        "footer";
 }
+
+.header {
+    grid-area: header; 
+}
+
 
 .carrito{
     width: 30px;
@@ -20,6 +30,9 @@
     margin-right: 50px;
 }
 
+.section1 {
+    grid-area: section1;
+}
 
 #contenedorJugadores{
     display: flex;
@@ -28,11 +41,21 @@
 
 #contenedorMiEquipo{
     flex-direction: column;
+    flex-direction: row;
+    width: 50%;
+    align-items: flex-end;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 #contenedorEquipoRival{
-    flex-direction: column;
+    flex-direction: row;
+    width: 50%;
     align-items: flex-end;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 #contenedorJugadores div{
@@ -79,9 +102,13 @@
     display: none;
 }
 
+#contenedorMiEquipo div p, #contenedorEquipoRival div p{
+    display: none;
+}
+
 #contenedorMiEquipo img, #contenedorEquipoRival img{
     margin-left: -21%;
-    margin-top: -5%;
+    margin-top: -1%;
 }
 
 .imagenProducto{
@@ -90,22 +117,42 @@
     padding: 10px;
 }
 
+#modal{
+    visibility: hidden;
+}
+
+.mostrarModal{
+    visibility: visible !important;
+    background-color: rgba(0,0,0, 0.5) !important;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
 #ventanaPopUp{
-    width: 900px;
-    height: 1000px;
+    width: 925px;
+    height: 650px;
     border: 1px solid black;
     flex-direction: column;
     background-color: white;
-    transform: translate(60%, -20%);
+    transform: translate(60%, -50%);
     border-radius: 5%;
     display: flex;
     flex-wrap:wrap;
     align-content: space-between;
     visibility: hidden;
+    position: absolute;
+
+    border-radius: 0.4em;
+    box-shadow: 0.5em 0.5em 0.9em #00000015;
+    transition: border 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: rgb(250, 250, 250) 0.2em solid;
 }
 
 .mostrarPopUp{
     visibility: visible !important;
+    z-index: 3;
 }
 
 
@@ -131,7 +178,21 @@
 #botonPartida{
     height: 60px;
     width: 100px;
+    position: absolute;
+    margin-top: 50%;
+    margin-left: 45%;
 }
 
+.wave{
+    height: 100%;
+    width:100vw;
+    grid-area: wave;
+}
+
+.footer{
+    grid-area: footer;
+    background-color: #0066ff;
+    margin-top: -3%;
+}
 
 
