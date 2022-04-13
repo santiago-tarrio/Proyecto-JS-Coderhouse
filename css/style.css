@@ -7,7 +7,7 @@
     height: 100vh;
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: 4% 38% 54% 4%;
+    grid-template-rows: 4% 140% 54% 4%;
     gap: 0px 0px;
     grid-template-areas:
         "header"
@@ -34,9 +34,11 @@
     grid-area: section1;
 }
 
-#contenedorJugadores{
+#contenedorEquipos{
     display: flex;
-    justify-content:space-evenly;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 }
 
 #contenedorMiEquipo{
@@ -58,11 +60,11 @@
     justify-content: center;
 }
 
-#contenedorJugadores div{
+#contenedorEquipos div{
     border: 1px solid black;
-    height: 350px;
-    width: 250px;
-    margin: 10px;
+    height: 245px;
+    width: 210px;
+    margin: 5px;
     overflow: hidden;
     border-radius: 0.4em;
     box-shadow: 0.3em 0.3em 0.7em #00000015;
@@ -71,23 +73,49 @@
 }
 
 
-#contenedorJugadores img{
+#contenedorEquipos img{
     margin-bottom: 5%;
-    margin-top: 5%;
 }
 
-#contenedorJugadores button{
+#contenedorEquipos button{
     transform: translateX(60%);
     margin-top: 15%;
 }
 
-#contenedorJugadores div:hover{
+#contenedorEquipos div:hover{
     border: #006fff 0.2em solid;
 }
 
-#contenedorJugadores div img{
+#contenedorEquipos div img{
     margin-left: -3%;
 }
+
+
+#contenedorJugadores{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin-top: 25px;
+}
+
+.cardJugadores{
+    height: 230px;
+    width: 200px;
+    overflow: hidden;
+    margin: 5px;
+    border-radius: 0.4em;
+    box-shadow: 0.3em 0.3em 0.7em #00000015;
+    transition: border 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: rgb(250, 250, 250) 0.2em solid;
+    background-color: white;
+}
+
+.cardJugadores img{
+    width: 195px;
+    height: auto;
+}
+
+
 
 #contenedorMiEquipo div, #contenedorEquipoRival div{
     height: 180px;
@@ -126,7 +154,7 @@
     background-color: rgba(0,0,0, 0.5) !important;
     position: absolute;
     width: 100%;
-    height: 100%;
+    height: 250%;
     z-index: 2;
 }
 
@@ -143,7 +171,7 @@
     align-content: space-between;
     visibility: hidden;
     position: absolute;
-
+    margin-top: -500px;
     border-radius: 0.4em;
     box-shadow: 0.5em 0.5em 0.9em #00000015;
     transition: border 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -187,6 +215,7 @@
     height: 100%;
     width:100vw;
     grid-area: wave;
+    z-index: -1;
 }
 
 .footer{
