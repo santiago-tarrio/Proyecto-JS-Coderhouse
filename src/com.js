@@ -1,7 +1,7 @@
 
 const equipoRivalRandom = []
 const equipoRivalOrden = []
-const er = []
+const jugadorAlternativo = {nombre: "LeBron", apellido: "James", games_played: 53, player_id: 237, season: 2021, fg3m: 2.79, reb: 8.17, ast: 6.34, stl: 1.36, blk: 1.04, pts: 29.89}
 
 
 
@@ -20,10 +20,12 @@ function jugadoresAleatorios () {
             console.log(equipoRivalRandom)
         }
     })
-    .then(estadisticasJugadoresRandom());
+    .then(setTimeout(estadisticasJugadoresRandom, 2000));
 }
 
-
+function s (){
+    console.log(aaa)
+}
 
 function estadisticasJugadoresRandom (){
     for (let i = 0; i < equipoRivalRandom.length; i++){
@@ -37,11 +39,9 @@ function estadisticasJugadoresRandom (){
         .then((estadisticas) => {
             if (estadisticas.data[0] === undefined || estadisticas.data[0] === null){
                 equipoRival.push(jugadorAlternativo)
-                localStorage.setItem("equipoRival", JSON.stringify(equipoRival));
                 document.getElementById('cantidadJugadoresVisita').innerHTML = equipoRival.length;
             }else {
                 equipoRival.push(estadisticas.data[0])
-                localStorage.setItem("equipoRival", JSON.stringify(equipoRival));
                 document.getElementById('cantidadJugadoresVisita').innerHTML = equipoRival.length;}
         return fetch(`https://www.balldontlie.io/api/v1/players/${estadisticas.data[0].player_id}`)})
         .then((res) => res.json())
@@ -82,7 +82,6 @@ function estadisticasDelJugador (nombreDelJugador){
         }
         if(miEquipo.length < 5 && jugadorRepetidoMiEquipo === false && estadisticas.data[0] !== undefined){
             miEquipo.push(estadisticas.data[0])
-            localStorage.setItem("miEquipo", JSON.stringify(miEquipo));
             document.getElementById('cantidadJugadores').innerHTML = miEquipo.length;
             console.log(estadisticas.data[0])
         } if(miEquipo.length > 5) {
