@@ -568,28 +568,12 @@
     "logo": "https://cdn.nba.com/logos/nba/1610612738/global/L/logo.svg"
   },
   {
-    "firstName": "Moses",
-    "lastName": "Brown",
-    "playerId": 1629650,
-    "teamId": 1610612760,
-    "teamName": "Oklahoma City Thunder",
-    "logo": "https://cdn.nba.com/logos/nba/1610612760/global/L/logo.svg"
-  },
-  {
     "firstName": "Sterling",
     "lastName": "Brown",
     "playerId": 1628425,
     "teamId": 1610612745,
     "teamName": "Houston Rockets",
     "logo": "https://cdn.nba.com/logos/nba/1610612745/global/L/logo.svg"
-  },
-  {
-    "firstName": "Charlie",
-    "lastName": "Brown Jr.",
-    "playerId": 1629718,
-    "teamId": 1610612760,
-    "teamName": "Oklahoma City Thunder",
-    "logo": "https://cdn.nba.com/logos/nba/1610612760/global/L/logo.svg"
   },
   {
     "firstName": "Troy",
@@ -1128,14 +1112,6 @@
     "logo": "https://cdn.nba.com/logos/nba/1610612753/global/L/logo.svg"
   },
   {
-    "firstName": "Drew",
-    "lastName": "Eubanks",
-    "playerId": 1629234,
-    "teamId": 1610612759,
-    "teamName": "San Antonio Spurs",
-    "logo": "https://cdn.nba.com/logos/nba/1610612759/global/L/logo.svg"
-  },
-  {
     "firstName": "Dante",
     "lastName": "Exum",
     "playerId": 203957,
@@ -1574,14 +1550,6 @@
     "teamId": 1610612755,
     "teamName": "Philadelphia 76ers",
     "logo": "https://cdn.nba.com/logos/nba/1610612755/global/L/logo.svg"
-  },
-  {
-    "firstName": "Shaquille",
-    "lastName": "Harrison",
-    "playerId": 1627885,
-    "teamId": 1610612743,
-    "teamName": "Denver Nuggets",
-    "logo": "https://cdn.nba.com/logos/nba/1610612743/global/L/logo.svg" 
   },
   {
     "firstName": "Josh",
@@ -3861,14 +3829,6 @@
     "teamId": 1610612738, 
     "teamName": "Boston Celtics",
     "logo": "https://cdn.nba.com/logos/nba/1610612738/global/L/logo.svg"
-  },
-  {
-    "firstName": "Paul",
-    "lastName": "Watson",
-    "playerId": 1628778,
-    "teamId": 1610612761,
-    "teamName": "Toronto Raptors",
-    "logo": "https://cdn.nba.com/logos/nba/1610612761/global/L/logo.svg"
   },
   {
     "firstName": "Quinndary",

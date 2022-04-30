@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NBA Draft Challenge</title>
+    <link rel="stylesheet" href=./css/style.css>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet"> 
+</head>
+<body>
+    <div class="gridContainer">
+        <section class="sectionOne">
+            <img src="https://cdn.freebiesupply.com/images/large/2x/nba-logo-transparent.png" alt="Logo NBA">
+        </section>
+        <section class="sectionTwo">
+            <div class="containerSection">
+                <h1 class="h1Index">NBA Draft Challenge</h1>
+                <p class="textoIndex">
+                    Demostrá tus conocimientos, elegí tus jugadores y ganá. <br>
+                    Seleccioná cinco jugadores de la NBA en base a sus estadísticas de 2021 y enfrentalos contra los elegidos por otro jugador o por la máquina. Los equipos se enfrentarán en base a los puntos totales, porcentaje en tiros de 3, asistencias, rebotes y robos; con cada jugador representando una de estas variantes. <br> 
+                    Si el jugador de un equipo tiene mejores números en su estadística respecto a las del jugador del equipo contrario, logra un punto para su lado, mientras que si lo supera por el doble consigue un punto adicional.  </p>
+                <div class="containerButtons">
+                    <div class="button">
+                        <a href="./pages/VS.html"><span class="textButton">VS PLAYER</span></a>	
+                    </div>
+                    <div class="button" onclick="jugadoresAleatorios ();">
+                        <a href="./pages/VSCom.html"><span class="textButton">VS COM</span></a>	
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="./src/main.js"></script>
+</body>
+</html>

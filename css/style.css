@@ -1,7 +1,136 @@
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box; }
+
+html{
+    font-size: 10px;
+}
+
+/*----------------------------------------------Index----------------------------------------------------*/
+
+
+.gridContainer {
+    display: grid; 
+    grid-template-columns: 25%; 
+    grid-template-rows: 1fr 1fr 1fr; 
+    gap: 0px 0px; 
+    grid-template-areas: 
+      "sectionOne sectionTwo sectionTwo sectionTwo"
+      "sectionOne sectionTwo sectionTwo sectionTwo"
+      "sectionOne sectionTwo sectionTwo sectionTwo"; 
+  }
+.sectionOne { 
+    grid-area: sectionOne;
+    height: 100vh;
+}
+
+.sectionOne img{
+    height: 80%;
+    width: auto;
+    margin-top: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.sectionTwo { 
+    grid-area: sectionTwo;
+    background-color: #1976e0;
+    color: #1976e0;
+    height: 100vh;
+}
+
+.containerSection{
+    margin-top: 18rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.h1Index {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    color: white;
+    font-size: 5.5rem;
+    text-align: center;
+}
+
+.textoIndex{
+    font-family: 'Inter', sans-serif;
+    font-size: 2.3rem;
+    width: 50%;
+    color: white;
+    text-align: justify;
+    margin-top: 4rem;
+}
+
+.containerButtons{
+    display: flex;
+    margin-top: 2rem;
+}
+
+.button {
+    position: relative;
+    display: block;
+    padding: 0.5rem 1rem 0.35rem 1rem;
+    font-size: 1.8rem;
+    letter-spacing: 0.2em;
+    text-align: center;
+    text-transform: uppercase;
+    background-color: transparent;
+    border: 0.7px solid white;
+    border-bottom: 5px solid white;
+    transition: color 700ms ease;
+    transition-property: color, background-color, transform;
+    cursor: pointer;
+    z-index: 1;
+    color: white;
+    margin: 20px;
+    width: 15.5rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+   }   
+   
+   .button:hover:before {
+    width: 100%;
+    height: 100%;
+    top: auto;
+    bottom: 0;
+   }
+   
+   .button:active {
+    transform: translateY(4px)
+   }
+   
+   .button:before {
+    content: '';
+    position: absolute;
+    display: block;
+    margin: 0 auto;
+    height: 0%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    background-color: white;
+    transition: height 0.3s ease;
+   }
+
+   .button a{
+       color: white;
+       cursor: pointer;
+       text-decoration: none;
+   }
+
+   .button:hover > a{
+    color: #1976e0;
+}
+
+
+
+/*----------------------------------------------VS Player------------------------------------------------*/
 
 .grilla {
     height: 100vh;

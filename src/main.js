@@ -24,7 +24,7 @@ function creadorCards (array, container){
     array.forEach(datosEquipos =>{
         let card = document.createElement("div");
         card.className = 'cardEquipos';
-        card.innerHTML = `<img src="${datosEquipos.logo}" class="imagenJugadores" id="${datosEquipos.teamName}" onclick="abrirEquipos(this.id)" >
+        card.innerHTML = `<img src="${datosEquipos.logo}" id="${datosEquipos.teamName}" onclick="abrirEquipos(this.id)" >
         <p>${datosEquipos.teamName}</p>`
         container.appendChild(card)
     })
@@ -32,17 +32,51 @@ function creadorCards (array, container){
 
 function creadorCardsJugadores (array, container){
     array.forEach(datosEquipos =>{
+        if (datosEquipos.firstName !== undefined){
         let card = document.createElement("div");
         card.className = 'cardJugadores';
-        card.innerHTML = `<img src="https://nba-players.herokuapp.com/players/${datosEquipos.lastName}/${datosEquipos.firstName}" class="imagenJugadores" onerror='this.style.display = "none"'>
-        <p>${datosEquipos.firstName}</p>
+        card.innerHTML = `<img src="https://nba-players.herokuapp.com/players/${datosEquipos.lastName}/${datosEquipos.firstName}" class="imagenJugadores">
+        <p id="nombreP">${datosEquipos.firstName}</p>
         <p>${datosEquipos.lastName}</p>
         <button class="botonJugadores" id="${datosEquipos.firstName}%20${datosEquipos.lastName}" onclick="estadisticasDelJugador(this.id)">Agregar al equipo</button>`
+        container.appendChild(card)
+    }
+    })
+}
+
+function creadorCardsEquipos (array, container){
+    array.forEach(datosEquipos =>{
+        let card = document.createElement("div");
+        card.className = 'cardJugadores';
+        card.innerHTML = `<img src="https://nba-players.herokuapp.com/players/${datosEquipos.apellido}/${datosEquipos.nombre}" class="imagenJugadores">
+        <p id="nombreP">${datosEquipos.nombre}</p>
+        <p>${datosEquipos.apellido}</p>`
         container.appendChild(card)
     })
 }
 
 
+reemplazarImagen = (e) => {
+    padreImagen = e.target.parentNode
+    nombreImagen = padreImagen.children[1].innerHTML
+    apellidoImagen = padreImagen.children[2].innerHTML
+
+    fetch(
+        `https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&formatversion=2&prop=pageimages|pageterms&piprop=thumbnail&pithumbsize=500&titles=${nombreImagen} ${apellidoImagen}`,
+        {
+        method: "GET"
+        }
+    )
+    .then((res) => res.json())
+    .then((data) => {
+        e.target.src = data.query.pages[0].thumbnail.source;
+        e.target.className += ' imagenAlternativa';
+    })
+    .catch(error => {
+        e.target.src = `https://graffica.info/wp-content/uploads/2017/08/NBA-logo-png-download-free-1200x675.png`
+        e.target.className += ' imagenError'
+    });
+}
 
 fetch('teams.json')
     .then((res) => res.json())
@@ -54,6 +88,7 @@ function abrirEquipos (nombreEquipo) {
     .then((res) => res.json())
     .then((data) => {
         const jugadoresPorEquipo = data.filter (data => data.teamName === nombreEquipo)
+        containerJugadores.style.display = 'none'
         if(containerJugadores.hasChildNodes()) {
             containerJugadores.innerHTML = '';
             jugadoresPorEquipo.push(teamPlayers)
@@ -61,9 +96,21 @@ function abrirEquipos (nombreEquipo) {
         }else{
             creadorCardsJugadores (jugadoresPorEquipo, containerJugadores)
         }
-        console.log(jugadoresPorEquipo)})
-}
+        console.log(jugadoresPorEquipo)
+        imagenesHtml = document.getElementsByClassName("imagenJugadores")
 
+        Array.from(imagenesHtml).forEach(e => {
+            e.addEventListener('error', reemplazarImagen)});
+        console.log(jugadoresPorEquipo)
+        var undefinedName = document.getElementById('nombreP').innerHTML
+        console.log(undefinedName)
+    })
+    setTimeout (carga, 3000)
+    function carga (){
+        containerJugadores.style.display = 'flex';
+    }
+    
+}
 
 
 
@@ -75,12 +122,32 @@ function estadisticasDelJugador (nombreDelJugador){
         return fetch(`https://www.balldontlie.io/api/v1/season_averages?season=2021&player_ids[]=${getId}`)})
     .then((res) => res.json())
     .then((estadisticas) => {
-        console.log(estadisticas)
-        if(miEquipo.length < 5){
+        if (estadisticas.data[0] === undefined || estadisticas.data[0] === null){
+            swal({
+                title: "No se encontraron estadísticas para este jugador",
+                text: "Por favor elija otro",
+                icon: "error",
+                button: "Continuar",
+            });
+        }
+        const jugadorId = estadisticas.data[0].player_id
+        console.log(jugadorId)
+        let jugadorRepetidoMiEquipo = miEquipo.some(miEquipo => miEquipo.player_id === estadisticas.data[0].player_id)
+        let jugadorRepetidoEquipoRival = equipoRival.some(equipoRival => equipoRival.player_id === estadisticas.data[0].player_id)
+        if(jugadorRepetidoMiEquipo === true || jugadorRepetidoEquipoRival === true){
+            swal({
+                title: "Este jugador ya ha sido elegido en algún equipo",
+                text: "Debes elegir otro jugador",
+                icon: "error",
+                button: "Continuar",
+            });
+        }
+        if(miEquipo.length < 5 && jugadorRepetidoMiEquipo === false && jugadorRepetidoEquipoRival === false && estadisticas.data[0] !== undefined){
             miEquipo.push(estadisticas.data[0])
             localStorage.setItem("miEquipo", JSON.stringify(miEquipo));
             document.getElementById('cantidadJugadores').innerHTML = miEquipo.length;
-        }else if(equipoRival.length < 5){
+            console.log(estadisticas.data[0])
+        }else if(equipoRival.length < 5 && jugadorRepetidoMiEquipo === false && jugadorRepetidoEquipoRival === false && estadisticas.data[0] !== undefined){
             equipoRival.push(estadisticas.data[0])
             localStorage.setItem("equipoRival", JSON.stringify(equipoRival));
             document.getElementById('cantidadJugadoresVisita').innerHTML = equipoRival.length;
@@ -90,8 +157,22 @@ function estadisticasDelJugador (nombreDelJugador){
         checkEquipoRival = equipoRival.length
         console.log(miEquipo)
         console.log(miEquipo[0].ast)
+        console.log(estadisticas.data[0].player_id)
+        return fetch(`https://www.balldontlie.io/api/v1/players/${estadisticas.data[0].player_id}`)})
+    .then((res) => res.json())
+    .then((names) => {
+        if(miEquipo.length < 6 && equipoRival.length === 0){
+        const combinarNombre = miEquipo.find (miEquipo => miEquipo.player_id === names.id)
+        combinarNombre.nombre = `${names.first_name}`;
+        combinarNombre.apellido = `${names.last_name}`;
+        }else{
+        const combinarNombreRival = equipoRival.find (equipoRival => equipoRival.player_id === names.id)
+        combinarNombreRival.nombre = `${names.first_name}`;
+        combinarNombreRival.apellido = `${names.last_name}`;
+        console.log(miEquipo)
+        console.log(equipoRival)}
     })
-}
+    }
 
 
 let total=0;
@@ -110,9 +191,13 @@ botonPartida.addEventListener ('click', abrirPopUp);
 
 
 function abrirPopUp (){
+    console.log(checkEquipoRival)
     if (checkEquipoRival === 5 && cardsEquipoRival < 5 ){
-    creadorCardsJugadores(miEquipo, containerMiEquipo);
-    creadorCardsJugadores (equipoRival, containerEquipoRival);
+    creadorCardsEquipos(miEquipo, containerMiEquipo);
+    creadorCardsEquipos(equipoRival, containerEquipoRival);
+    imagenesHtml = document.getElementsByClassName("imagenJugadores")
+    Array.from(imagenesHtml).forEach(e => {
+        e.addEventListener('error', reemplazarImagen)});
     }
     cardsMiEquipo = containerMiEquipo.childElementCount;
     cardsEquipoRival = containerEquipoRival.childElementCount;
@@ -127,6 +212,8 @@ function abrirPopUp (){
             button: "Continuar",
         });
     }
+    console.log(checkEquipoRival)
+    console.log(cardsEquipoRival)
 }
 
 
@@ -141,26 +228,36 @@ function juego(rol){
             miEquipo[rol].pts > equipoRival[rol].pts &&  puntosLocal++;    
             miEquipo[rol].pts < equipoRival[rol].pts &&  puntosVisita++;
             miEquipo[rol].pts === equipoRival[rol].pts &&  puntosEmpate++;
+            miEquipo[rol].pts > (equipoRival[rol].pts * 2) &&  puntosLocal++;
+            (miEquipo[rol].pts * 2) < equipoRival[rol].pts &&  puntosVisita++;
             break;
         case 1:
             miEquipo[rol].fg3m > equipoRival[rol].fg3m &&  puntosLocal++;    
             miEquipo[rol].fg3m < equipoRival[rol].fg3m &&  puntosVisita++;
             miEquipo[rol].fg3m === equipoRival[rol].fg3m &&  puntosEmpate++;
+            miEquipo[rol].fg3m > (equipoRival[rol].fg3m * 2) &&  puntosLocal++;
+            (miEquipo[rol].fg3m * 2) < equipoRival[rol].fg3m &&  puntosVisita++;
             break;
         case 2:
             miEquipo[rol].ast > equipoRival[rol].ast &&  puntosLocal++;    
             miEquipo[rol].ast < equipoRival[rol].ast &&  puntosVisita++;
             miEquipo[rol].ast === equipoRival[rol].ast &&  puntosEmpate++;
+            miEquipo[rol].ast > (equipoRival[rol].ast * 2) &&  puntosLocal++;
+            (miEquipo[rol].ast * 2) < equipoRival[rol].ast &&  puntosVisita++;
             break;
         case 3:
             miEquipo[rol].reb > equipoRival[rol].reb &&  puntosLocal++;    
             miEquipo[rol].reb < equipoRival[rol].reb &&  puntosVisita++;
             miEquipo[rol].reb === equipoRival[rol].reb &&  puntosEmpate++;
+            miEquipo[rol].reb > (equipoRival[rol].reb * 2) &&  puntosLocal++;
+            (miEquipo[rol].reb * 2) < equipoRival[rol].reb &&  puntosVisita++;
             break;
         case 4:
             miEquipo[rol].stl > equipoRival[rol].stl &&  puntosLocal++;    
             miEquipo[rol].stl < equipoRival[rol].stl &&  puntosVisita++;
             miEquipo[rol].stl === equipoRival[rol].stl &&  puntosEmpate++;
+            miEquipo[rol].stl > (equipoRival[rol].stl * 2) &&  puntosLocal++;
+            (miEquipo[rol].stl * 2) < equipoRival[rol].stl &&  puntosVisita++;
         default:
             console.log("error")
     }
@@ -202,3 +299,11 @@ if (puntosLocal > puntosVisita) {
     console.log("Empate");
 }
 
+
+
+
+
+
+/*https://en.wikipedia.org/w/api.php?action=query&format=json&formatversion=2&prop=pageimages|pageterms&piprop=thumbnail&pithumbsize=500&titles=Zion Williamson*/
+
+/*Usar addeventlistener onerror / tomar el nombre y apellido que se genero en el html / fetch con el link de arriba y ese nombre y apellido /  onerror='this.style.display = "none"' */
