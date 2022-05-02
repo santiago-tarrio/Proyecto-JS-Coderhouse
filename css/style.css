@@ -136,17 +136,40 @@ html{
     height: 100vh;
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: 4% 140% 54% 4%;
+    grid-template-rows:  6% 135% 45%;
     gap: 0px 0px;
     grid-template-areas:
         "header"
         "section1"
-        "wave"
-        "footer";
+        "wave";
 }
 
 .header {
     grid-area: header; 
+    background-color: #002d68;
+    
+}
+
+.containerLinks{
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    justify-content: flex-end;
+}
+
+.listElements{
+    display: inline-block;
+    margin-top: 2.9rem;
+    margin-right: 1rem;
+}
+
+.listElements a {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 500;
+    font-size: 1.8rem;
+    color: white;
+    text-decoration: none;
+    margin-left: 0.5rem;
 }
 
 
@@ -161,6 +184,22 @@ html{
 
 .section1 {
     grid-area: section1;
+}
+
+.section1 h1{
+    font-family: 'Inter', sans-serif;
+    font-size: 4rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+    color: #006fff;
+}
+
+.section1 h2{
+    font-family: 'Inter', sans-serif;
+    font-size: 2rem;
+    font-weight: 500;
+    text-align: center;
 }
 
 #contenedorEquipos{
@@ -189,22 +228,21 @@ html{
     justify-content: center;
 }
 
-#contenedorEquipos div{
-    border: 1px solid black;
-    height: 245px;
-    width: 210px;
+.cardEquipos{
+    height: 21rem;
+    width: 17.6rem;
     margin: 5px;
     overflow: hidden;
     border-radius: 0.4em;
     box-shadow: 0.3em 0.3em 0.7em #00000015;
     transition: border 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     border: rgb(250, 250, 250) 0.2em solid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
 }
 
-
-#contenedorEquipos img{
-    margin-bottom: 5%;
-}
 
 #contenedorEquipos button{
     transform: translateX(60%);
@@ -216,9 +254,17 @@ html{
 }
 
 #contenedorEquipos div img{
-    margin-left: -3%;
+    width: 18rem;
+    height: auto;
+    margin-bottom: 0.5rem;
 }
 
+.cardEquipos p {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+}
 
 #contenedorJugadores{
     display: flex;
@@ -228,29 +274,49 @@ html{
 }
 
 .cardJugadores{
-    height: 230px;
-    width: 200px;
+    height: 24.5rem;
+    width: 18.5rem;
     overflow: hidden;
-    margin: 5px;
+    margin: 0.3rem;
     border-radius: 0.4em;
     box-shadow: 0.3em 0.3em 0.7em #00000015;
     transition: border 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     border: rgb(250, 250, 250) 0.2em solid;
     background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.cardJugadores img{
+.containerImgPlayer{
     width: 195px;
-    height: auto;
+    height: 200px;
+    overflow: hidden;
 }
 
+.imagenJugadores{
+    width: 200px;
+    height: auto;
+    margin-left: -3px;
+}
 
+.imagenError{
+    width: 18rem;
+    margin: 0.8rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.cardJugadores p{
+    font-size: 1.5rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+}
 
 #contenedorMiEquipo div, #contenedorEquipoRival div{
-    height: 180px;
+    height: 140px;
     width: 180px;
-    border-radius: 50%;
-    border: 1px solid black;
+    border-radius: 10px;
     overflow: hidden;
     margin: 10px;
 }
@@ -263,9 +329,8 @@ html{
     display: none;
 }
 
-#contenedorMiEquipo img, #contenedorEquipoRival img{
-    margin-left: -21%;
-    margin-top: -1%;
+#contenedorMiEquipo img{
+    margin-top: 3rem;
 }
 
 .imagenProducto{
@@ -289,7 +354,7 @@ html{
 
 #ventanaPopUp{
     width: 925px;
-    height: 650px;
+    height: 540px;
     border: 1px solid black;
     flex-direction: column;
     background-color: white;
@@ -311,33 +376,114 @@ html{
     visibility: visible !important;
     z-index: 3;
 }
-
-
-#botonVS{
-    height: 60px;
-    width: 150px;
-    border-radius: 8%;
-    border: none;
+#containerResultL, #containerResultV {
+    background-color: #006eff;
+    width: 27rem;
+    height: 3.3rem;
+    transform: skew(20deg);
     position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-top: 10px;
+    top: 85%;
+    left: 40%;
+    display: none;
+    justify-content: center;
 }
+#containerResultV{
+    background-color: #cf0a2c;
+}
+
+#containerResultL, #containerResultV p {
+    color: white;
+    font-size: 20px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+}  
+.buttonVS {
+ display: inline-block;
+ width: 150px;
+ height: 50px;
+ border: none;
+ position: relative;
+ overflow: hidden;
+ transition: all 0.5s ease-in;
+ z-index: 1;
+ left: 50%;
+ transform: translateX(-50%);
+ margin-top: 10px;
+ background-color: #002d68;
+ cursor: pointer;
+}
+
+.buttonVS::before,
+.buttonVS::after {
+ content: '';
+ position: absolute;
+ top: 0;
+ width: 0;
+ height: 100%;
+ transform: skew(15deg);
+ transition: all 0.5s;
+ overflow: hidden;
+ z-index: -1;
+}
+
+.buttonVS::before {
+ left: -10px;
+ background: #006eff;
+}
+
+.buttonVS::after {
+ right: -10px;
+ background: #cf0a2c;
+}
+
+.buttonVS:hover::before,
+.buttonVS:hover::after {
+ width: 58%;
+}
+
+.buttonVS:hover span {
+ transition: 0.3s;
+}
+
+.buttonVS span {
+ color: white;
+ font-family: 'Inter', sans-serif;
+ font-weight: 700;
+ font-size: 1.5rem;
+ transition: all 0.3s ease-in;
+}
+
+.botonJugadores{
+    width: 120px;
+    height: 20px;
+    color: white;
+    border-radius: 5px;
+    left: 0;
+    transform: none;
+}
+
 
 
 #botonCerrado{
     position: absolute;
     top: 10px;
     right: 10px;
-    color: blue;
+    color: white;
+    background-color: #ec164a;
+    height: 23px;
+    width: 23px;
+    border: none;
+    border-radius: 15%;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 #botonPartida{
-    height: 60px;
-    width: 100px;
     position: absolute;
     margin-top: 50%;
-    margin-left: 45%;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
 }
 
 .wave{
@@ -347,10 +493,34 @@ html{
     z-index: -1;
 }
 
-.footer{
-    grid-area: footer;
-    background-color: #0066ff;
-    margin-top: -3%;
+.containerSpinner {
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
 }
 
+
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border-left-color: #006eff;
+    display: none;
+    animation: spin 1s ease infinite;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+  
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  
 

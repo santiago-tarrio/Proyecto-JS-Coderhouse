@@ -33,8 +33,9 @@ function estadisticasJugadoresRandom (){
         .then((res) => res.json())
         .then((data) => {
             //const getId = data.data[0].id
-            if (data.data[0].id === undefined || data.data[0].id === null) return fetch(`https://www.balldontlie.io/api/v1/season_averages?season=2021&player_ids[]=237`)
-            else return fetch(`https://www.balldontlie.io/api/v1/season_averages?season=2021&player_ids[]=${data.data[0].id}`)})
+            console.log(data.data[0].id)
+            if (data.data[0].id !== undefined || data.data[0].id !== null) return fetch(`https://www.balldontlie.io/api/v1/season_averages?season=2021&player_ids[]=${data.data[0].id}`)
+        }) 
         .then((res) => res.json())
         .then((estadisticas) => {
             if (estadisticas.data[0] === undefined || estadisticas.data[0] === null){
@@ -43,7 +44,8 @@ function estadisticasJugadoresRandom (){
             }else {
                 equipoRival.push(estadisticas.data[0])
                 document.getElementById('cantidadJugadoresVisita').innerHTML = equipoRival.length;}
-        return fetch(`https://www.balldontlie.io/api/v1/players/${estadisticas.data[0].player_id}`)})
+                return fetch(`https://www.balldontlie.io/api/v1/players/${estadisticas.data[0].player_id}`)
+        })
         .then((res) => res.json())
         .then((names) => {
             if(names.id !== undefined) {
@@ -52,61 +54,9 @@ function estadisticasJugadoresRandom (){
             combinarNombre.apellido = `${names.last_name}`;}
             })
     }
-    console.log(equipoRival)
 }
 
-function estadisticasDelJugador (nombreDelJugador){
-    fetch(`https://www.balldontlie.io/api/v1/players?search=${nombreDelJugador}`)
-    .then((res) => res.json())
-    .then((data) => {
-        const getId = data.data[0].id
-        return fetch(`https://www.balldontlie.io/api/v1/season_averages?season=2021&player_ids[]=${getId}`)})
-    .then((res) => res.json())
-    .then((estadisticas) => {
-        if (estadisticas.data[0] === undefined || estadisticas.data[0] === null){
-            swal({
-                title: "No se encontraron estadísticas para este jugador",
-                text: "Por favor elija otro",
-                icon: "error",
-                button: "Continuar",
-            });
-        }
-        let jugadorRepetidoMiEquipo = miEquipo.some(miEquipo => miEquipo.player_id === estadisticas.data[0].player_id)
-        if(jugadorRepetidoMiEquipo === true){
-            swal({
-                title: "Este jugador ya ha sido elegido en algún equipo",
-                text: "Debes elegir otro jugador",
-                icon: "error",
-                button: "Continuar",
-            });
-        }
-        if(miEquipo.length < 5 && jugadorRepetidoMiEquipo === false && estadisticas.data[0] !== undefined){
-            miEquipo.push(estadisticas.data[0])
-            document.getElementById('cantidadJugadores').innerHTML = miEquipo.length;
-            console.log(estadisticas.data[0])
-        } if(miEquipo.length > 5) {
-            botonDehabilitado.disabled = true;
-            swal({
-                title: "Ya elegiste todos los jugadores de tu equipo",
-                text: "Ya puedes realizar el enfrentamiento",
-                icon: "error",
-                button: "Continuar",
-            });
-        }
-        checkEquipoRival = equipoRival.length
-        console.log(miEquipo)
-        console.log(miEquipo[0].ast)
-        console.log(estadisticas.data[0].player_id)
-        return fetch(`https://www.balldontlie.io/api/v1/players/${estadisticas.data[0].player_id}`)})
-    .then((res) => res.json())
-    .then((names) => {
-        if(miEquipo.length < 6 && equipoRival.length === 0){
-        const combinarNombre = miEquipo.find (miEquipo => miEquipo.player_id === names.id)
-        combinarNombre.nombre = `${names.first_name}`;
-        combinarNombre.apellido = `${names.last_name}`;
-        }
-    })
-    }
+
 
 function ordenRandom() {
     equipoRival.sort((a, b) => parseFloat(b.pts) - parseFloat(a.pts))
@@ -121,7 +71,8 @@ function ordenRandom() {
     equipoRival.sort((a, b) => parseFloat(b.reb) - parseFloat(a.reb))
     equipoRivalOrden.push(equipoRival[0])
     equipoRivalOrden.push(equipoRival[1])
-    equipoRival.splice(0, 2)
+    equipoRival.splice(0, 10)
+    console.log(equipoRival)
     for(let i = 0; i < 5; i++){
         equipoRival.push(equipoRivalOrden[i]);
     }

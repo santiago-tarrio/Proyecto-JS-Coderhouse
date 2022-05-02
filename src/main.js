@@ -13,7 +13,7 @@ const containerJugadores = document.querySelector('#contenedorJugadores');
 const containerTeams = document.querySelector('#contenedorEquipos');
 const containerMiEquipo = document.querySelector('#contenedorMiEquipo');
 const containerEquipoRival = document.querySelector('#contenedorEquipoRival')
-
+const loader = document.getElementsByClassName('containerSpinner')
 var botonDehabilitado = document.getElementsByClassName('botonJugadores')
 
 let checkEquipoRival = equipoRival.length;
@@ -35,10 +35,10 @@ function creadorCardsJugadores (array, container){
         if (datosEquipos.firstName !== undefined){
         let card = document.createElement("div");
         card.className = 'cardJugadores';
-        card.innerHTML = `<img src="https://nba-players.herokuapp.com/players/${datosEquipos.lastName}/${datosEquipos.firstName}" class="imagenJugadores">
+        card.innerHTML = `<div class="containerImgPlayer"><img src="https://nba-players.herokuapp.com/players/${datosEquipos.lastName}/${datosEquipos.firstName}" class="imagenJugadores"></div>
         <p id="nombreP">${datosEquipos.firstName}</p>
         <p>${datosEquipos.lastName}</p>
-        <button class="botonJugadores" id="${datosEquipos.firstName}%20${datosEquipos.lastName}" onclick="estadisticasDelJugador(this.id)">Agregar al equipo</button>`
+        <button class="botonJugadores buttonVS" id="${datosEquipos.firstName}%20${datosEquipos.lastName}" onclick="estadisticasDelJugador(this.id)">Agregar al equipo</button>`
         container.appendChild(card)
     }
     })
@@ -58,8 +58,9 @@ function creadorCardsEquipos (array, container){
 
 reemplazarImagen = (e) => {
     padreImagen = e.target.parentNode
-    nombreImagen = padreImagen.children[1].innerHTML
-    apellidoImagen = padreImagen.children[2].innerHTML
+    abueloImagen = padreImagen.parentNode
+    nombreImagen = abueloImagen.children[1].innerHTML
+    apellidoImagen = abueloImagen.children[2].innerHTML
 
     fetch(
         `https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&formatversion=2&prop=pageimages|pageterms&piprop=thumbnail&pithumbsize=500&titles=${nombreImagen} ${apellidoImagen}`,
@@ -88,6 +89,7 @@ function abrirEquipos (nombreEquipo) {
     .then((res) => res.json())
     .then((data) => {
         const jugadoresPorEquipo = data.filter (data => data.teamName === nombreEquipo)
+        document.getElementById('controlSpinner').style.display = 'inline-block'
         containerJugadores.style.display = 'none'
         if(containerJugadores.hasChildNodes()) {
             containerJugadores.innerHTML = '';
@@ -107,6 +109,7 @@ function abrirEquipos (nombreEquipo) {
     })
     setTimeout (carga, 3000)
     function carga (){
+        document.getElementById('controlSpinner').style.display = 'none'
         containerJugadores.style.display = 'flex';
     }
     
@@ -272,7 +275,6 @@ function enfrentamiento() {
 
 const empezarPartida = document.getElementById('botonPartida');
 
-const resultado = document.getElementById('resultado');
 
 empezarPartida.addEventListener('click', () => {
     enfrentamiento();
@@ -280,10 +282,12 @@ empezarPartida.addEventListener('click', () => {
     console.log(puntosLocal);
     console.log(puntosVisita);
     if (puntosLocal > puntosVisita) {
-        resultado.innerHTML = `<p>Ganó el equipo local</p>`
+        document.getElementById('containerResultL').style.display = 'flex';
+        document.getElementById('botonPartida').style.display = 'none';
         localStorage.clear();
         } else if (puntosLocal < puntosVisita) {
-        resultado.innerHTML = `<p>Ganó el equipo visitante</p>`
+        document.getElementById('containerResultV').style.display = 'flex';
+        document.getElementById('botonPartida').style.display = 'none';
         localStorage.clear();
         } else {
         resultado.innerHTML = `<p>Es un empate</p>`
